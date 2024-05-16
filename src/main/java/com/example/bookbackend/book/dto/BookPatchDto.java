@@ -13,6 +13,7 @@ public class BookPatchDto {
     private String endDate;
     private String summary;
     private String text;
+    private String imageUrl;
     private int totalPageCount;
     private int goalPageCount;
 

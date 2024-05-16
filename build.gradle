@@ -86,6 +86,7 @@ asciidoctor {
 }
 
 bootJar {
+    archiveFileName = "${rootProject.name}.jar"
     dependsOn asciidoctor
     from("${asciidoctor.outputDir}") {
         into 'static/docs' // http://localhost:8080/docs/index.html 경로에서 문서를 확인할 수 있음

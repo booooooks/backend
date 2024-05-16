@@ -1,4 +1,4 @@
-package com.example.bookbackend.auth.web.dto;
+package com.example.bookbackend.token.web.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

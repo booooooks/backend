@@ -2,7 +2,7 @@ package com.example.bookbackend.auth.application;
 
 import com.example.bookbackend.auth.application.dto.SignInInfo;
 import com.example.bookbackend.auth.exception.AuthException;
-import com.example.bookbackend.auth.web.dto.Tokens;
+import com.example.bookbackend.token.web.dto.Tokens;
 import com.example.bookbackend.member.application.MemberService;
 import com.example.bookbackend.member.domain.Member;
 import com.example.bookbackend.token.application.TokenService;

@@ -34,10 +34,13 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(AbstractHttpConfigurer::disable)
                 .formLogin(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(authorize -> authorize.requestMatchers(
-                                new AntPathRequestMatcher("/home")
-                        ).permitAll()
-                        .anyRequest().authenticated())
+                .authorizeHttpRequests(authorize ->
+                                authorize.requestMatchers(
+                                        "/home",
+                                        "/v1/**",
+                                        "/member/sign-up",
+                                        "/auth/sign-in"
+                                ).permitAll().anyRequest().authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .exceptionHandling(handler -> handler
                         .authenticationEntryPoint(entryPoint)
@@ -57,4 +60,16 @@ public class SecurityConfig {
     public static PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
+    //EC2 가상서버
+    /**
+     * git이랑 mysql, java
+     * github jar로 빌드해서 올려놓기
+     * EC2 커맨드로 소스를 가져와서 jar
+     *
+     * jenkins 설치
+     * ci / cd
+     * git -> codeBuild -> codeDeploy -> S3(log, build)
+     *
+     */
 }

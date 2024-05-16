@@ -1,6 +1,6 @@
 package com.example.bookbackend.common.util;
 
-import com.example.bookbackend.auth.web.dto.Tokens;
+import com.example.bookbackend.token.web.dto.Tokens;
 import com.example.bookbackend.common.response.CommonResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletResponse;
