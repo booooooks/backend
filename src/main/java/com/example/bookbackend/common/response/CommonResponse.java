@@ -3,6 +3,8 @@ package com.example.bookbackend.common.response;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 
+import java.util.Map;
+
 @Getter
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class CommonResponse<T> {
@@ -24,5 +26,9 @@ public class CommonResponse<T> {
 
     public static <T> CommonResponse<T> of(ApiCode code) {
         return new CommonResponse<>(code.name(), code.getMsg());
+    }
+
+    public static <T> CommonResponse<T> from(ApiCode code, T info) {
+        return new CommonResponse<>(code.name(), code.getMsg(), info);
     }
 }

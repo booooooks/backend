@@ -27,6 +27,12 @@ public enum ApiCode {
     // token
     API_3000("3000", "일치하는 리프레쉬 토큰이 없습니다.", BAD_REQUEST),
 
+    // input validation
+    API_9000("9000", "잘못된 입력 값이 존재합니다.", BAD_REQUEST),
+    API_9001("9001", "입력 값을 파싱할 수 없습니다.", BAD_REQUEST),
+    API_9002("9002", "요청 파라미터가 존재하지 않습니다.", BAD_REQUEST),
+    API_9003("9003", "잘못된 요청 경로입니다.", NOT_FOUND),
+
     // etc
     API_9999("9999", "기타 시스템 오류입니다.", INTERNAL_SERVER_ERROR);
 

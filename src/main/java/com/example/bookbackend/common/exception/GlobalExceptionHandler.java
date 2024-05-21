@@ -5,8 +5,15 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import java.util.Map;
+import java.util.stream.Collectors;
+
 @Slf4j
 @RequiredArgsConstructor
 @RestControllerAdvice
@@ -42,5 +49,34 @@ public class GlobalExceptionHandler {
                 exception
         );
         return ResponseEntity.ofNullable(new CommonResponse(errorCode.getCode(), errorCode.getMessage()));
+    }
+
+    /**
+     *  Bean Validation 예외핸들러
+     */
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<?> handleValidationException(MethodArgumentNotValidException e) {
+        log.error("validation exception :: ", e);
+
+        Map<String, String> errors = errorsToMap(e);
+
+        return ResponseEntity.badRequest()
+                .body(CommonResponse.from(ApiCode.API_9000, errors));
+    }
+
+    private Map<String, String> errorsToMap(MethodArgumentNotValidException e) {
+        return e.getBindingResult().getAllErrors().stream()
+                .collect(Collectors.toMap(
+                        error -> getField(error),
+                        error -> error.getDefaultMessage()
+                ));
+    }
+
+    private String getField(ObjectError error) {
+        if (error instanceof FieldError) {
+            return ((FieldError) error).getField();
+        }
+
+        return error.getObjectName();
     }
 }

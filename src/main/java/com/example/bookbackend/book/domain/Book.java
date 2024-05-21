@@ -26,6 +26,7 @@ public class Book extends BaseTimeEntity {
     private String imageUrl;
     private int totalPageCount;
     private int goalPageCount;
+    private boolean completedReading;
 
     @OneToMany(mappedBy = "book", cascade = CascadeType.REMOVE)
     private List<BookMarker> bookMarkerList = new ArrayList<>();

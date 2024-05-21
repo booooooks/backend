@@ -38,12 +38,6 @@ class MemberServiceTest {
                 .name("abc")
                 .build();
 
-        try {
-            memberService.saveNewMember(signUpInfo);
-        } catch (MemberException e) {
-            System.out.println("==========================");
-            System.out.println(e.getMessage());
-        }
         // when & then
         assertThatThrownBy(() -> memberService.saveNewMember(signUpInfo))
                 .isInstanceOf(MemberException.class)
