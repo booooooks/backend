@@ -59,8 +59,8 @@ public class BookService {
         return book;
     }
 
-    public List<Book> getBooks() {
-        List<Book> bookList = bookRepository.findAll();
+    public List<Book> getBooks(Long userId) {
+        List<Book> bookList = bookRepository.findAllByMemberId(userId);
         return bookList;
     }
 

@@ -11,4 +11,6 @@ import java.util.List;
 public interface BookRepository extends JpaRepository<Book, Long> {
     @Query("SELECT DISTINCT b FROM Book b where b.member = (select m from Member m where m.name = :name)")
     List<Book> findByBookInfo(@Param("name") String name);
+
+    List<Book> findAllByMemberId(Long userId);
 }

@@ -67,10 +67,10 @@ public class BookController {
      * 전체 조회
      */
     @GetMapping
-    public ResponseEntity<List<BookResponseDto>> getBooks() {
+    public ResponseEntity<List<BookResponseDto>> getBooks(@AuthenticatedUser Long userId) {
         List<BookResponseDto> bookResponseDtoList;
 
-        List<Book> bookList = bookService.getBooks();
+        List<Book> bookList = bookService.getBooks(userId);
         bookResponseDtoList = bookMapper.booksToBookListResponseDto(bookList);
         return ResponseEntity.ok(bookResponseDtoList);
     }
