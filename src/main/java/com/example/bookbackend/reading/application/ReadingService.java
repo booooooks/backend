@@ -2,8 +2,6 @@ package com.example.bookbackend.reading.application;
 
 import com.example.bookbackend.book.domain.Book;
 import com.example.bookbackend.book.domain.BookRepository;
-import com.example.bookbackend.common.exception.GlobalException;
-import com.example.bookbackend.common.response.ApiCode;
 import com.example.bookbackend.reading.application.dto.ReadingRequestDto;
 import com.example.bookbackend.reading.application.dto.ReadingResponseDto;
 import com.example.bookbackend.reading.domain.Reading;
@@ -13,8 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Slf4j
 @Service
@@ -92,21 +89,46 @@ public class ReadingService {
         return i;
     }
 
+    //진행률 계산
+    public Map<String, String> getBookProgress(String name) {
+        Map<String, String> map = new HashMap<>();
+
+        //1. 책 페이지 조회(없으면 빈 Map 반환)
+        List<Book> getBookData = getBookInfo(name);
+        if(getBookData.isEmpty()) return map;
+
+        //2. 각 책의 독서 진행률 계산
+        for(Book b : getBookData) {
+            //2-1. 진행률 100%
+            if(b.isCompletedReading()) {
+                map.put(b.getTitle(), "100%");
+                continue;
+            }
+            //2-2. 진행률 0%
+            if(b.getTotalPageCount() == 0) {
+                map.put(b.getTitle(), "0%");
+                continue;
+            }
+            //2-3. 진행률 1% ~ 99%
+            String progress = (double) b.getTotalPageCount() / (double) b.getGoalPageCount() * 100.0 + "%";
+            map.put(b.getTitle(), progress);
+        }
+        return map;
+    }
+
     //메인(종합 데이터)
     public ReadingResponseDto returnMainData(ReadingRequestDto readingRequestDto) {
-        //1. 책에 대한 정보 가져오기
-        List<Book> bookInfo = getBookInfo(readingRequestDto.getName());
-
-        //2. 총 읽은 책 계산
-        int allBook = getAllBookCounting(readingRequestDto.getName());
-        //3. 읽고 있는 책 갯수 계산
-        int readingBook = getReadingBookCounting(readingRequestDto.getName());
-        //4. 읽을 책 계산
-        int readBook = getReadBookCounting(readingRequestDto.getName());
+        String name = readingRequestDto.getName();
+        //1. 총 읽은 책 계산
+        int allBook = getAllBookCounting(name);
+        //2. 읽고 있는 책 갯수 계산
+        int readingBook = getReadingBookCounting(name);
+        //3. 읽을 책 계산
+        int readBook = getReadBookCounting(name);
 
         //5. 책에 대한 정보에서 진행률 % 계산
-        //TODO (이건 book브랜치와 병합전이라 지금 상태에서 백엔드에서 처리하기 복잡함.)
+        Map<String, String> progressMap = getBookProgress(name);
 
-        return ReadingResponseDto.returnData(allBook, readingBook, readBook, bookInfo);
+        return ReadingResponseDto.returnData(allBook, readingBook, readBook, progressMap);
     }
 }

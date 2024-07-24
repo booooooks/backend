@@ -1,9 +1,9 @@
 package com.example.bookbackend.reading.application.dto;
 
-import com.example.bookbackend.book.domain.Book;
 import lombok.*;
 
-import java.util.List;
+import java.util.Map;
+
 
 @Getter
 @Builder
@@ -13,15 +13,15 @@ public class ReadingResponseDto {
     private int allBookCnt; //총 읽은책 개수
     private int readingBookCnt; //읽고 있는 책 개수
     private int readBookCnt; //읽을 책 개수
-    private List<Book> books; //목표, 책 제목, 책 내용?, 읽은 페이지(%), 이미지, 완독여부
+    private Map<String, String> progressMap;
 
     //api 반환
-    public static ReadingResponseDto returnData(int allBookCnt, int readingBookCnt, int readBookCnt, List<Book> books) {
+    public static ReadingResponseDto returnData(int allBookCnt, int readingBookCnt, int readBookCnt, Map<String, String> progressMap) {
         return ReadingResponseDto.builder()
                 .allBookCnt(allBookCnt)
                 .readingBookCnt(readingBookCnt)
                 .readBookCnt(readBookCnt)
-                .books(books)
+                .progressMap(progressMap)
                 .build();
     }
 }
