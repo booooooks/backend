@@ -102,16 +102,16 @@ public class ReadingService {
             //2-1. 진행률 100%
             if(b.isCompletedReading()) {
                 map.put(b.getTitle(), "100%");
-                continue;
             }
             //2-2. 진행률 0%
             if(b.getTotalPageCount() == 0) {
                 map.put(b.getTitle(), "0%");
-                continue;
             }
             //2-3. 진행률 1% ~ 99%
-            String progress = (double) b.getTotalPageCount() / (double) b.getGoalPageCount() * 100.0 + "%";
-            map.put(b.getTitle(), progress);
+            if(!b.isCompletedReading() && b.getTotalPageCount() > 0) {
+                String progress = (double) b.getTotalPageCount() / (double) b.getGoalPageCount() * 100.0 + "%";
+                map.put(b.getTitle(), progress);
+            }
         }
         return map;
     }
