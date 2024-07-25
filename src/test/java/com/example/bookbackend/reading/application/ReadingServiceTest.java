@@ -12,18 +12,16 @@ import com.example.bookbackend.reading.repository.ReadingRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
@@ -87,7 +85,10 @@ class ReadingServiceTest {
         int readingBook = 1; // 읽고 있는 책 갯수
         int readBook = 0; // 읽을 책 계산
 
-        ReadingResponseDto returnData = ReadingResponseDto.returnData(allBook, readingBook, readBook, bookInfo);
+        Map<String, String> progressMap = new HashMap<>();
+        progressMap.put("편의점 가는 기분", "100%");
+
+        ReadingResponseDto returnData = ReadingResponseDto.returnData(allBook, readingBook, readBook, progressMap);
 
         // When
         ReadingResponseDto responseDto = readingService.returnMainData(readingRequestDto);

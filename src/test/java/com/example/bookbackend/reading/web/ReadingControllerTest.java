@@ -1,15 +1,12 @@
 package com.example.bookbackend.reading.web;
 
 import com.example.bookbackend.auth.application.AuthService;
-import com.example.bookbackend.auth.application.dto.SignInInfo;
 import com.example.bookbackend.common.jwt.JwtAuthenticationFilter;
 import com.example.bookbackend.reading.application.ReadingService;
 import com.example.bookbackend.reading.application.dto.ReadingRequestDto;
 import com.example.bookbackend.reading.domain.Reading;
 import com.example.bookbackend.reading.repository.ReadingRepository;
-import com.example.bookbackend.token.web.dto.Tokens;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import net.bytebuddy.asm.MemberSubstitution;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +18,6 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -43,8 +39,6 @@ public class ReadingControllerTest {
     ReadingService readingService;
     @MockBean
     ReadingRepository readingRepository;
-    //@MockBean
-    //BookService bookService;
 
     @WithMockUser
     @DisplayName("마이페이지 접근시 읽은책에 관한 데이터 반환.")
