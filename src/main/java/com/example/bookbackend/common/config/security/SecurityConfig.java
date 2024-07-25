@@ -40,7 +40,8 @@ public class SecurityConfig {
                                         "/v1/**",
                                         "/member/sign-up",
                                         "/auth/sign-in",
-                                        "auth/sign-in/social",
+                                        "/auth/sign-in/social",
+                                        "/token/reissue",
                                         "/v3/api-docs/**",
                                         "/api-docs",
                                         "/swagger-ui/**"
