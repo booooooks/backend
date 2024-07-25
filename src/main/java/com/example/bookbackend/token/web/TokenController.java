@@ -21,7 +21,7 @@ public class TokenController {
                               @RequestHeader(name = HttpHeaders.AUTHORIZATION) String accessToken,
                               HttpServletResponse response) {
 
-        Tokens tokens = tokenService.reissueTokens(refreshToken, accessToken);
+        Tokens tokens = tokenService.reissueTokens(refreshToken, accessToken.substring(7));
 
         setUpTokensToCookie(tokens, response);
     }
