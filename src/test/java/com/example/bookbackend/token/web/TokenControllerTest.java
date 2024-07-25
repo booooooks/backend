@@ -38,7 +38,7 @@ class TokenControllerTest {
     @Test
     void reissueTokens() throws Exception {
         // given
-        String oldAccess ="1234";
+        String oldAccess ="Bearer 1234";
         String oldRefresh = "123456";
         Tokens newTokens = Tokens.of("abc", "abcde");
 
