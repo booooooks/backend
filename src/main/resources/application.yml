@@ -19,6 +19,18 @@ spring:
         format_sql: true
     show-sql: false
 
+# logback 설정
+logging:
+  file:
+    name: logs/dadok.log
+  logback:
+    rollingpolicy:
+      max-file-size: 10MB
+      max-history: 30
+      file-name-pattern: ${LOG_FILE}.%d{yyyy-MM-dd}-%i.log
+  level:
+    root: info
+
 springdoc:
   swagger-ui:
     path: /api-docs  # swagger-ui 접근 경로에 대한 별칭, 해당 주소로 접속해도 http://localhost:8080/swagger-ui/index.html로 리다이렉션 됨.
