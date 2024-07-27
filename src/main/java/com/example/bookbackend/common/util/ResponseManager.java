@@ -29,10 +29,10 @@ public class ResponseManager {
     private static ResponseCookie createCookie(String tokenType, String token, boolean isHttpOnly, long maxAge) {
         return ResponseCookie.from(tokenType, token)
                 .httpOnly(isHttpOnly)
-                .secure(true)
+                .secure(false)
                 .path("/")
                 .maxAge(maxAge)
-                .sameSite("None")
+                .sameSite("Lax")
                 .build();
     }
 
